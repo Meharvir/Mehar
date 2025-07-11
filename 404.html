@@ -3,11 +3,24 @@
   <head>
     <meta charset="utf-8">
     <title>Redirecting...</title>
-    <script>
-      // Get the current path
-      const path = window.location.pathname;
-      // Redirect to the same path in index.html
-      window.location.href = '/Meharvir-Portfolio/index.html' + path;
+    <script type="text/javascript">
+      // GitHub Pages 404 redirect for React Router (universal, robust)
+      (function() {
+        var l = window.location;
+        // Find the base path (repo name) from the current script path
+        var pathSegments = l.pathname.split('/').filter(Boolean);
+        var repo = pathSegments.length > 0 ? pathSegments[0] : '';
+        // Reconstruct the full path after the repo name
+        var afterRepo = pathSegments.slice(1).join('/');
+        // Build the redirect URL
+        var newUrl = l.protocol + '//' + l.host + '/' + repo + '/index.html';
+        if (afterRepo) {
+          newUrl += '?redirect=/' + afterRepo + l.search.replace(/^\?/, '&') + l.hash;
+        } else {
+          newUrl += l.search + l.hash;
+        }
+        window.location.replace(newUrl);
+      })();
     </script>
   </head>
   <body>
